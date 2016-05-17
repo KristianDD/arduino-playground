@@ -20,7 +20,7 @@ int maxDiodePin;
 unsigned long result = 0;
 unsigned long previousMillis = 0;
 int interval = 1000;
-int minInterval = 200;
+int minInterval = 550;
 
 int currentButton;
 bool isGameOver = false;
@@ -64,7 +64,6 @@ void setDefaultState(){
 }
 
 void changeDiode(){
-  randomSeed(analogRead(A0));
   int randomDiode = random(minDiodePin, maxDiodePin + 1);
   
   while(randomDiode == currentDiode){
@@ -112,8 +111,8 @@ void gameOver(){
   display.display();
 }
 
-void setup()   { 
-  
+void setup()   {
+  randomSeed(analogRead(A0));
   diodes[6] = 3;
   diodes[7] = 4;
   diodes[8] = 5;
@@ -135,31 +134,9 @@ void setup()   {
   }
   
   pinMode(startButton, INPUT_PULLUP);
-
-  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC);
   display.clearDisplay();
   setDefaultState();
-/*  testdrawchar();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // text display tests
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0,0);
-  display.println("Hello, world!");
-  display.setTextColor(BLACK, WHITE); // 'inverted' text
-  display.println(3.141592);
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.print("0x"); display.println(0xDEADBEEF, HEX);
-  display.display();
-  delay(2000);
-  display.clearDisplay();*/
-  
-  
 }
 
 
